@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://pagecdn.io/lib/ace/1.4.12/ace.js" crossorigin="anonymous" integrity="sha256-Q9hnBpgBFstzZOr+OKFOWZWfcF5nFXO8Qz48Nmndo6U=" ></script>
+	<script src = "https://www.youtube.com/iframe_api"></script>
+	<link rel="stylesheet" href="../css/nube.css">
+
+	<title> Nube </title>
+</head>
+<body>
+	<div id="texto">
+		
+		<h1> Nube </h1>
+		
+		<p id="subtitulo"> Proceso de creación de una Nube que almacena información entrante.</p>
+
+		<p id="detalles"> Esta es mi <a href="https://es.wikipedia.org/wiki/Computaci%C3%B3n_en_la_nube" id="hiperlink">nube</a> y se encarga de recibir los mensajes que se envían desde la página web, desde Twitch o desde cualquier interfaz que se cree para que lxs usuarixs interactúen. Una vez que recibe un mensaje, los almacena en una base de datos y los reenvía, a <a href="https://derivative.ca/" id="hiperlink">TouchDesigner</a> para generar las <a href="https://es.wikipedia.org/wiki/Nube" id="hiperlink">nubes</a>.</p>
+
+	</div>
+
+	<div id="jsEditor">		
+		//MI SERVER
+
+		const express = require('express'); //importar express
+		const Datastore = require('nedb'); // importar nedb
+		const Client = require("node-osc").Client;
+		const socket = require("socket.io");
+
+		const app = express(); //crear app
+		const oscClient = new Client("192.168.0.105", 7000);
+
+		const server = app.listen(3000, () => console.log('listening at 3000')); // abrir un escuchador y hacer un call back function
+		app.use(express.static('public')); //uso express para hostear archivos estaticos
+		app.use(express.json({
+			limit: '1mb'
+		})); //uso express para analizar informacion que entra del cliente
+
+		//const database = []; // array para ir poniendo la data
+		const database = new Datastore('database.db'); // en vez de crear un array, creo un Datastore, que es un path a un file
+		database.loadDatabase();
+
+		//POST
+		app.post('/api', (request, response) => { //Abro un 'POST Route Method' que lo llamo '/api'
+
+			//REQUEST
+			// console.log('Request!');
+			const data = request.body;
+
+			const timestamp = Date.now(); //funcion para agregar un timestamp
+			const timestampString = timestamp.toString();
+			data.timestampString = timestampString; //agrego el timestamp a la data
+			const status = "success";
+			data.status = status;
+
+
+			database.insert(data); // pongo la data en un base de datos con insert en vez de ponerla en un array con push
+
+			//RESPONSE
+			response.json(data);
+			// oscClient.send("/data", request.body.input1)
+
+
+			// console.log(data);
+
+		});
+
+
+
+		//GET
+		app.get('/api', (request, response) => {
+			database.find({}, (err, data) => { // funcion para buscar dentro de la database, {} significa todo, me trae errores y data 
+				if (err) {
+					response.end();
+					return;
+				}
+				response.json(data); //respondo con toda la database
+			});
+		});
+
+
+		//WEBSOCKETS
+		var io = socket(server);
+		io.sockets.on('connection', newConnection);
+
+		function newConnection(socket) {
+			console.log('new connection ' + socket.id);
+
+			socket.on('data', (data) => {
+				console.log(data);
+
+				// socket.broadcast.emit('data', data);
+				io.sockets.emit('data', data);
+			});
+		}
+	
+	
+	
+	</div>
+
+	<script src="../js/nube.js"></script>
+	<br>
+	<br>
+	<br>
+	<div id="texto">
+		
+		<p id="detalles"> Acá muestro como funciona la comunicación de la interfaz web con el server. Todo gracias a <a href="https://www.youtube.com/playlist?list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X" id="hiperlink">Daniel Shiffman</a> 🌈❤️ y sus videos sobre <a href="https://nodejs.org/es/">Node.js</a>. La idea detrás de crear una nube local, además de querer entender como funcionaba, es que sea autosustentable. No depende de ninguna conexión a internet ni de servidores externos privados que funcionen. Sólo depende de la computadora donde esté el archivo. Esto me parece importante tanto en términos prácticos como conceptuales.</p>
+	
+	</div>
+	
+	<div id="videos">
+		
+		<iframe width="1280" height="720" src="https://www.youtube.com/embed/1Qph26AEHmY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	
+	</div>
+
+</body>
+</html>

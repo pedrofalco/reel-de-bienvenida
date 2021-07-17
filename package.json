@@ -1,0 +1,18 @@
+{
+  "name": "reel-despedida",
+  "version": "1.0.0",
+  "description": "website para mi reel de despedida",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nubes"
+  ],
+  "author": "Pedro Falco",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "youtube-iframe": "^1.0.3"
+  }
+}
