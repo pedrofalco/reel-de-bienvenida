@@ -130,25 +130,7 @@ a#generador {
 	top: 200px; left: 755px;
 }
 
-.imagenes {
-  max-width: 100%;
-  height: auto;
-  width: auto\9; /* ie8 */
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
-}
 
-div > img {
-  padding: 20px;
-
-}
-
-img {
-	max-width: 100%;
-    height: auto;
-    width: auto\9; /* ie8 */
-}
 
 a#hiperlink {	
 	margin: 0;
