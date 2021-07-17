@@ -80,8 +80,6 @@ div > iframe {
   padding: 5px;
 }
 
-
-
 input, button, a {
 	/*display: inline-block;*/
 	/*margin-top: 20%;*/
@@ -131,9 +129,7 @@ a#generador {
 }
 
 .imagenes {
-  max-width: 100%;
-  height: auto;
-  width: auto\9; /* ie8 */
+
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(3, 1fr);
@@ -141,12 +137,12 @@ a#generador {
 
 div > img {
   padding: 20px;
+
 }
 
 img {
-    max-width: 100%;
-    height: auto;
-    width: auto\9; /* ie8 */
+	  max-width: 33%;
+
 }
 
 a#hiperlink {	
