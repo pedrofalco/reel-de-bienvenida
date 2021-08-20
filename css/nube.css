@@ -105,12 +105,12 @@ a#nube {
 
 a#twitch {
 	position: absolute;
-	top: 300px; left: 1600px;
+	top: 200px; left: 1700px;
 }
 
 a#sentido {
 	position: absolute;
-	top: 570px; left: 1180px;
+	top: 440px; left: 1300px;
 }
 
 a#clasificador {
@@ -125,7 +125,12 @@ a#sonido {
 
 a#generador {
 	position: absolute;
-	top: 200px; left: 755px;
+	top: 100px; left: 725px;
+}
+
+a#mirar {
+	position: absolute;
+	top: 500px; left: 850px;
 }
 
 .imagenes {
