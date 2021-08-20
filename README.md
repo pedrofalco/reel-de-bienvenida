@@ -1,3 +1,3 @@
-# reel-de-despedida
-Entrega de mi Reel de Despedida para Proyecto Audiovisual 4.
+# reel-de-bienvenida
+Entrega de mi Reel de Bienvenida para Proyecto Audiovisual 4.
 
